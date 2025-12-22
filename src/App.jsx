@@ -10,6 +10,7 @@ function App() {
 
   const handleAdd = () => {
     if (input.trim() === "") {
+      //!input
       return;
     }
     setTodoList([...todoList, input]); // ...todoList : array spread ani gives previous array's elements, input: adds new element in list
