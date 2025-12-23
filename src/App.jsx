@@ -41,7 +41,10 @@ function App() {
       {/* <button onClick={useEffect}>Character</button> */}
       <ul>
         {quotes.map((item) => (
-          <li key={item._id}>{item.quote}</li>
+          <div key={item._id}>
+            <li>{item.quote}</li>
+            <li>{item.character}</li>
+          </div>
           // item.character
         ))}
       </ul>
