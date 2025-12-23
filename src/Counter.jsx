@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ParentComponent from "./ParentComponent";
 
 const Counter = () => {
@@ -12,6 +12,10 @@ const Counter = () => {
   const decrement = () => {
     setState(state - 1);
   };
+
+  // useEffect(() => {
+  //   console.log("Counter component mounted");
+  // }, []);
 
   return (
     <>
@@ -28,3 +32,13 @@ const Counter = () => {
 };
 
 export default Counter;
+
+//useEffect: runs 1 time in initial (fetch)
+// dependencies: pass [] -> useEffecct load only in the first initial load
+// useEffect run only when state changes
+
+// CRUD
+// API methods: GET -> data fetches only (reads)
+// Post -> create, add data
+// PUT , PATCH -> both for update (PUT: while editing - whole response is sent, PATCH: only sends what is edited)
+// DELETE -> delete data

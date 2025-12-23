@@ -1,37 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import Name from "./name";
-import ParentComponent from "./ParentComponent";
-import Counter from "./Counter";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [quotes, setQuotes] = useState([]);
+  const [characterName, setCharacterName] = useState("");
   const [input, setInput] = useState("");
 
-  const handleAdd = () => {
-    if (input.trim() === "") {
-      //!input
-      return;
+  // async: wait till another task not completed, fetching in bg
+  const handleSubmit = async (event) => {
+    if (event.key === "Enter") {
+      try {
+        // template literals `: can use declared variable - making dynamic
+        // API call
+        const response = await fetch(
+          `https://yurippe.vercel.app/api/quotes?character=${characterName}&random=1`
+        );
+        const request = await response.json();
+        // console.log(response);
+        setQuotes(request);
+        console.log(request);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    setTodoList([...todoList, input]); // ...todoList : array spread ani gives previous array's elements, input: adds new element in list
-    setInput("");
   };
 
-  console.log(todoList);
+  // console.log(quotes);
+  // console.log(input);
 
   return (
     <>
+      {/* <h1>Hi</h1> */}
+      <h2>Anime Quotes</h2>
       <input
-        value={input}
-        placeholder="Todo List"
-        // onChange={() => setInput(event.target.value)} // event le what targetting
-        onChange={(event) => setInput(event.target.value)}
+        value={characterName}
+        placeholder="Anime"
+        onChange={(event) => setCharacterName(event.target.value)}
+        onKeyUp={handleSubmit}
       />
-
-      <button onClick={handleAdd}>Add</button>
+      {/* <button onClick={useEffect}>Character</button> */}
       <ul>
-        {todoList.map((todoItem, index) => (
-          <li key={index}>{todoItem}</li>
+        {quotes.map((item) => (
+          <li key={item._id}>{item.quote}</li>
+          // item.character
         ))}
       </ul>
     </>
