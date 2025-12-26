@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import Name from "./name";
-import ParentComponent from "./ParentComponent";
-import Counter from "./Counter";
+import { MdDeleteForever } from "react-icons/md";
+import { IoAddCircle } from "react-icons/io5";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -17,6 +16,12 @@ function App() {
     setInput("");
   };
 
+  const handleDelete = (indexToDel) => {
+    const newTodoList = todoList.filter((_, index) => index != indexToDel); // like map:  looping, _ means no item passing
+    // console.log(newTodoList);
+    setTodoList(newTodoList); // newTodo list to display
+  };
+
   console.log(todoList);
 
   return (
@@ -28,10 +33,24 @@ function App() {
         onChange={(event) => setInput(event.target.value)}
       />
 
-      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleAdd}>
+        <IoAddCircle />
+      </button>
       <ul>
         {todoList.map((todoItem, index) => (
-          <li key={index}>{todoItem}</li>
+          <li
+            key={index}
+            style={{
+              display: "flex",
+              gap: "5px",
+              justifyContent: "space-between",
+            }}
+          >
+            {todoItem}
+            <button onClick={() => handleDelete(index)}>
+              <MdDeleteForever />
+            </button>
+          </li>
         ))}
       </ul>
     </>
@@ -39,3 +58,7 @@ function App() {
 }
 
 export default App;
+
+// .filter function => num.filter(n=> n>2) :gives num greater than 2
+// icon: lucid, react-icons
+// react-router-dom: tailwind
